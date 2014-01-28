@@ -1,4 +1,8 @@
+## FoxyRoute Rewrites
+## Remember to correctly set the rewrite base variable, this example assumes
+## that example.php is accessible via localhost/foxyroute/
+
 RewriteEngine on
-RewriteBase /localhost/foxyroute/
+RewriteRule . - [E=REWRITEBASE:/foxyroute/] ## <- Rewrite base!!!
 RewriteCond %{REQUEST_FILENAME} !-s 
-RewriteRule ^(.*)$ /foxyroute/example.php/$1 [L]
+RewriteRule ^(.*)$ %{ENV:REWRITEBASE}example.php/$1 [L]
