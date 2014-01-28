@@ -1,8 +1,11 @@
 ## FoxyRoute Rewrites
-## Remember to correctly set the rewrite base variable, this example assumes
-## that example.php is accessible via localhost/foxyroute/
+## Remember to correctly set the base directory and app file name, this example 
+## is set up for example.php accessible via localhost/foxyroute/
 
 RewriteEngine on
-RewriteRule . - [E=REWRITEBASE:/foxyroute/] ## <- Rewrite base!!!
+
+RewriteRule . - [E=REWRITEBASE:/foxyroute/] ## <- Base directory!
+RewriteRule . - [E=APP:example.php] ## <- App file name!
+
 RewriteCond %{REQUEST_FILENAME} !-s 
-RewriteRule ^(.*)$ %{ENV:REWRITEBASE}example.php/$1 [L]
+RewriteRule ^(.*)$ %{ENV:REWRITEBASE}%{ENV:APP}/$1 [L]
