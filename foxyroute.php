@@ -11,26 +11,33 @@ class FoxyRoute {
 	private $executed;
 	
 	public function __construct(){
-		
 		$this->executed = false;
-		if (isset($_SERVER['PATH_INFO'])){
-			$path = explode('/', $_SERVER['PATH_INFO']);
+		if (isset($_SERVER['REQUEST_URI'])){
+			$path = explode('/', $_SERVER['REQUEST_URI']);
 			$this->path = array_filter($path);
 		}
 	}
 	
 	public function Debug(){
-		print_r('Path: ' . $this->path . '<br>');
-		print_r('Vars: ' . $this->vars . '<br>');
+		var_dump($this->path);
+		var_dump($this->vars);
+	}
+	
+	public function Redirect($location){
+		header('Location: ' . $location);
 	}
 	
 	public function Get($var){
 		return $this->vars[$var];
 	}
 	
-	public function Route($pattern, $function){
+	public function Post($var){
+		return isset($_POST[$var]) ? $_POST[$var] : null;
+	}
+	
+	public function Route($pattern, $function, $enabled = true){
 		
-		if (!$this->executed){
+		if (!$this->executed && $enabled){
 		
 			$pattern = array_filter(explode('/', $pattern));
 			
