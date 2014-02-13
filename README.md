@@ -16,6 +16,7 @@ RewriteRule . - [E=APP:example.php] ## <- App file name!
 require_once 'foxyroute.php';
 $foxy = new FoxyRoute();
 ```
+
 ###Route examples:
 
 ####Default Route
@@ -40,3 +41,14 @@ $foxy->Route("/hello/{name}", function() use ($foxy){
 	print("Hello, " . $foxy->Get('name') . '!');
 });
 ```
+
+###Other functions:
+
+####Get($varName)
+Fetches any parameters from the route, as shown in example route.
+
+####Post($varName)
+Fetches the requested post data, returns null if not found.
+
+####Debug()
+Outputs data for testing if routing is working and htaccess is configured correctly.
